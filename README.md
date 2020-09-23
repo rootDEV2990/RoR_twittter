@@ -227,6 +227,24 @@
   <% end %>
 27. add @tweeet varriable in index method of tweeets_controller.rb
   @tweeet = Tweeet.new
+28. make app refresh to home after user sends new tweet to db in tweeets_controller.rb
+  if @tweeet.save
+        #delete this line
+        #format.html { redirect_to @tweeet, notice: 
+        #add this one
+        format.html { redirect_to root_path, notice: 'Tweeet was successfully created.' }
+        format.json { render :show, status: :created, location: @tweeet }
+      else
+
+
+## USERS set up
+
+1. made devise migration in terminal type   
+  rails g devise User
+2. run migration with rails in terminal 
+  rails db:migrate
+
+
 
 ## Author
 
