@@ -243,6 +243,9 @@
   rails g devise User
 2. run migration with rails in terminal 
   rails db:migrate
+3. rake routes with rake or rails
+  rails routes
+
 
 
 
