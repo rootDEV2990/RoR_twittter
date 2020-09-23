@@ -51,7 +51,93 @@
         <p class="alert"><%= alert %></p>
       </div>
     <% end %>
+14. run in terminal view generator with devise
+    rails g devise:views
+15. add to view/application.html.erb
+    <nav class="navbar is-info">
+      <div class="navbar-brand">
+      
+        <%= link_to root_path, class: "navbar-item" do %>
+          <h1 class="title is-5">Twitter</h1>
+        <% end %>
+        <div class="navbar-burger burger" data-target="navbarExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navbarExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to 'New Tweeet', new_tweeet_path, class: "button is-info is-inverted" %>
+              </p>
+              <p class="control">Sign Up</p>
+            </div>
+          </div>
+      </div>
+    </nav>
+16. add to assests/stylesheets/application.scss
+     @import "bulma";
 
+    .nav-brand .title {
+        color: white;
+    }
+
+    // round images
+    .image {
+        border-radius: 50%;
+        img {
+            border-radius: 50%;
+        }
+    }
+    .notifications:not(:last-child){
+        margin-bottom: 0;
+    }
+17. replace file views/tweets/index.html.erb with render for patial
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <%= render 'feed'%>
+      </div>
+    </div>
+  </section>
+  
+18. make partial file for feed and add content views/tweeets/_feed.index.html
+  <div class="column is-half">
+    <article class="media-box">
+      <figure class="media-left">
+        <p class="image is-64x64">
+            <img src="https://bulma.io/images/placeholders/64x64.png">
+        </p>
+      </figure>
+      <div class="media-content">
+
+      </div>
+    </article>
+  </div>
+
+  <% @tweeets.each do |item| %>
+    <div class="box">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <img src="https://bulma.io/images/placeholders/64x64.png">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content"> 
+            <strong>Otto</strong><br/>
+            <email>@microverse</email><br/>
+            <p><%= item.tweeet%></p>
+          </div>
+        </div>
+      </article>
+    </div>
+  <% end %>
+
+  <%= link_to 'New Tweeet', new_tweeet_path %>
+19. 
 
 ## Author
 
