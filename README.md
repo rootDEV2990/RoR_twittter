@@ -1,24 +1,40 @@
-# README
+# Cloning Twitter with Rails 6
+> Scaffolding a Rails app with user sign up, sign in, and dynamic views. Great first app for any one to try with CRUD features. The power of Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Built With
 
-Things you may want to cover:
+- Ruby on Rails
+- sqlite3 for the local development
+- VScode
+- Rubocop
 
-* Ruby version
+## Guide
 
-* System dependencies
+1. Check the feature branch for the latest work! #gitflow
 
-* Configuration
 
-* Database creation
+## Author
 
-* Database initialization
+👤 **Miguel Angel Enciso Sanchez**
 
-* How to run the test suite
+- Github: [@rootDEV2990](https://github.com/rootDEV2990)
+- Twitter: [@m29902](https://twitter.com/m29902)
+- Linkedin: [linkedin](https://www.linkedin.com/in/miguel-enciso-6474741a1/)
+- Medium: [medium](https://medium.com/@website.dev)
 
-* Services (job queues, cache servers, search engines, etc.)
+## 🤝 Contributing
 
-* Deployment instructions
+Contributions, issues and feature requests are welcome!
 
-* ...
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Microverse
+- Heroku
+## 📝 License
+
+This project is [MIT](LICENSE) licensed.
+
