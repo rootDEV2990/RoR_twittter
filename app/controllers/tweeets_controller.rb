@@ -5,6 +5,7 @@ class TweeetsController < ApplicationController
   # GET /tweeets.json
   def index
     @tweeets = Tweeet.all.order("created_at DESC")
+    @tweeet_it = Tweeet.new
   end
 
   # GET /tweeets/1

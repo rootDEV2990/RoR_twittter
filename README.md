@@ -178,6 +178,56 @@
     </div>
 </div>
 
+22. implent trends column inside of index.html.erb before feed
+  <%= render 'trends' %>
+23. create partial file view/tweeets/_trends.html.erb and add
+  <div class="column is-one-quarter">
+    <nav class="panel">
+        <p class="panel-heading">Trends</p>
+        <a class="panel-block">
+            Trend 1
+        </a>
+        <a class="panel-block">
+            Trend 2
+        </a>
+        <a class="panel-block">
+            Trend 3
+        </a>
+        <a class="panel-block">
+            Trend 4
+        </a>
+        <a class="panel-block">
+            Trend 5
+        </a>
+    </nav>
+  </div>
+
+24. render form to post tweeet add in _feed.html.erb
+  <div class="column is-half">
+    <article class="media-box">
+      <figure class="media-left">
+        ...
+      </figure>
+      <div class="media-content">
+        <!--add this render line-->
+        <%= render 'tweeets/form' %>
+        <!--add this render line-->
+      </div>
+    </article>
+  </div>
+26. change code in _form.html.erb add our new form 
+  <%= simple_form_for(@tweeet_it) do |form| %>
+  <%= form.error_notification %>
+  <div class="field">
+    <div class="control">
+      <%= form.input :tweeet, lable: "Tweeet about it", input_html: { class: "textarea"}, wrapper: false, label_html: {class: "label"}, placeholder: "Compose a new tweeet..." %>
+    </div>
+  </div>
+  <%= form.button :submit, class: "button is-info" %>
+  <% end %>
+27. add @tweeet_it varriable in index method of tweeets_controller.rb
+  @tweeet_it = Tweeet.new
+
 ## Author
 
 👤 **Miguel Angel Enciso Sanchez**
