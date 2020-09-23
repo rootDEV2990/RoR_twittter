@@ -32,7 +32,25 @@
     #if with bootstrap or foundation
     #rails generate simple_form:install --bootstrap
     #rails generate simple_form:install --foundation
-
+9. add gravatar gem for easy avatars add to Gemfile
+    gem 'gravatar_image_tag', '~> 1.2'
+10. add devise gem for log ins and users
+    gem 'devise', '~> 4.7', '>= 4.7.3'
+11. run in terminal install for devise
+    rails generate devise:install
+12. add to config/enviroments/development.rb for mailers
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+13. add to app/view/application.html.erb inside body tag
+    <% if flash[:notice] %>
+      <div class="notification is-primary global-notification">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-primary global-notification">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
 
 
 ## Author

@@ -29,6 +29,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'bulma-rails', '~> 0.6.1'
 gem 'simple_form'
 
+#for images
+gem 'gravatar_image_tag', '~> 1.2'
+
+#for devise
+gem 'devise', '~> 4.7', '>= 4.7.3'
+
 # foundation
 #gem 'foundation-rails', '~> 6.6', '>= 6.6.2.0'
 #gem 'autoprefixer-rails'
