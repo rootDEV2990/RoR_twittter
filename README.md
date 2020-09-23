@@ -115,26 +115,26 @@
 
       </div>
     </article>
-  </div>
 
-  <% @tweeets.each do |item| %>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content"> 
-            <strong>Otto</strong><br/>
-            <email>@microverse</email><br/>
-            <p><%= item.tweeet%></p>
+    <% @tweeets.each do |item| %>
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/64x64.png">
+            </figure>
           </div>
-        </div>
-      </article>
-    </div>
-  <% end %>
+          <div class="media-content">
+            <div class="content"> 
+              <strong>Otto</strong><br/>
+              <email>@microverse</email><br/>
+              <p><%= item.tweeet%></p>
+            </div>
+          </div>
+        </article>
+      </div>
+    <% end %>
+  </div>
 
 19. add options to post like edit and delete in _feed.html.erb
   <div class="media-content">
@@ -225,8 +225,8 @@
   </div>
   <%= form.button :submit, class: "button is-info" %>
   <% end %>
-27. add @tweeet_it varriable in index method of tweeets_controller.rb
-  @tweeet_it = Tweeet.new
+27. add @tweeet varriable in index method of tweeets_controller.rb
+  @tweeet = Tweeet.new
 
 ## Author
 
