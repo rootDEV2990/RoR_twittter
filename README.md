@@ -10,7 +10,11 @@
 
 ## Guide
 
-1. Check the feature branch for the latest work! #gitflow
+1. generate Tweets (makes vies controler and models)
+    rails g scaffold Tweeet tweet:text
+2. migrate db
+    rails db:migrate
+
 
 
 ## Author
