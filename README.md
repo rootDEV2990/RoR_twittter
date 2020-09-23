@@ -91,7 +91,7 @@
             border-radius: 50%;
         }
     }
-    .notifications:not(:last-child){
+    .notification:not(:last-child){
         margin-bottom: 0;
     }
 17. replace file views/tweets/index.html.erb with render for patial
@@ -136,8 +136,22 @@
     </div>
   <% end %>
 
-  <%= link_to 'New Tweeet', new_tweeet_path %>
-19. 
+19. add options to post like edit and delete in _feed.html.erb
+  <div class="media-content">
+    ...
+  </div>
+  <div class="level">
+    <div class="level-left is-mobile">
+      <%= link_to item, class: "level-item" do %>
+        <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+      <% end %>
+      <%= link_to edit_tweeet_path(item), class: "level-item" do %>
+        <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+      <% end %>
+      <%= link_to item, method: :delete, data: { confirm: "Are you sure you want to delete this tweeet?" } do %>
+        <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+      <% end %>
+    </div>
 
 ## Author
 

@@ -26,37 +26,19 @@
           <p><%= item.tweeet%></p>
         </div>
       </div>
+      <div class="level">
+        <div class="level-left is-mobile">
+          <%= link_to item, class: "level-item" do %>
+            <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+          <% end %>
+          <%= link_to edit_tweeet_path(item), class: "level-item" do %>
+            <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+          <% end %>
+          <%= link_to item, method: :delete, data: { confirm: "Are you sure you want to delete this tweeet?" } do %>
+            <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+          <% end %>
+        </div>
+      </div>
     </article>
   </div>
 <% end %>
-
-<%= link_to 'New Tweeet', new_tweeet_path %>
-
-<!--
-
-<p id="notice"><%= notice %></p>
-
-  <h1>Tweeets</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Tweeet</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tweeets.each do |tweeet| %>
-        <tr>
-          <td><%= tweeet.tweeet %></td>
-          <td><%= link_to 'Show', tweeet %></td>
-          <td><%= link_to 'Edit', edit_tweeet_path(tweeet) %></td>
-          <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<br>
-
-
--->
