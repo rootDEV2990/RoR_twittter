@@ -14,6 +14,24 @@
     rails g scaffold Tweeet tweet:text
 2. migrate db
     rails db:migrate
+3. updates config/routes.rb
+    root to: "tweeets#index"
+4. add gems to Gemfile inside dev block
+    gem 'better_errors'
+    gem 'guard'
+    gem 'guard-livereload', require: false
+5. in terminal run command
+    bundle install
+6. add bulma or css of choice and forms gem. 
+    gem 'bulma-rails', '~> 0.6.1'
+    gem 'simple_form', '~> 3.5'
+7. re run bundle again in terminal
+    bundle install
+8. generate forms with terminal type and run cmd
+    rails generate simple_form:install
+    #if with bootstrap or foundation
+    #rails generate simple_form:install --bootstrap
+    #rails generate simple_form:install --foundation
 
 
 
