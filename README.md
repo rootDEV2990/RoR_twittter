@@ -152,6 +152,31 @@
         <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
       <% end %>
     </div>
+20. add partial to display column with followers render who_to_follow under the feed partial
+  <% render 'who_to_follow' %>
+21. create new partial file _who_to_follow.html.erb add the following html
+  <div class="column">
+    <nav class="panel">
+        <p class="panel-heading">Who to Follow</p>
+    </nav>
+    <div class="panel-block">
+        <article class="media">
+            <div class="media-left">
+                <figure>
+                    <img src="https://bulma.io/images/placeholders/64x64.png">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>Satoshi Nakamoto</strong>
+                        <strong>@btc</strong>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
 
 ## Author
 
