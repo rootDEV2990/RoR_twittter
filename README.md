@@ -245,6 +245,314 @@
   rails db:migrate
 3. rake routes with rake or rails
   rails routes
+4. add feilds for name and username in in tweeets_controller.rb add 
+  before_action :authenticate_user!, except: [:index, :show]
+5. make a registrations_controller.rb file in controller folder and add
+  class RegistrationsController < Devise::RegistrationsController
+    private
+    def sign_up_params
+        params.require(:user).permit(:name, :username, :email, :password, password_confirmation)
+    end
+    def account_update_params
+        params.require(:user).permit(:name, :username, :email, :password, password_confirmation, :current_password)
+    end
+  end
+6. generate new migration to add new colums in db
+  rails g migration AddFieldsToUsers
+7. in migration file registations_controller.rb inside of def change block
+  class RegistrationsController < Devise::RegistrationsController
+    private
+    def sign_up_params
+        params.require(:user).permit(:name, :username, :email, :password, password_confirmation)
+    end
+    def account_update_params
+        params.require(:user).permit(:name, :username, :email, :password, password_confirmation, :current_password)
+    end
+  end
+8. run migrations with rails in terminal
+  rails db:migrate
+9. navigate to migrations/xxxxadd_to_user.rb and add to change method
+  def change
+    add_column :users, :name, :string
+    add_column :users, :username, :string
+    add_index :users, :username, unique: true
+  end
+10. run migration again in terminal 
+  rails db:migrate
+11. add custom view for sign up rewrite views/devise/registration/new.html.erb
+  <div class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-4">
+          <h2 class="title is-2">Sign Up</h2>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.error_notification %>
+          <div class="field">
+            <div class="control">
+              <%= f.input :name, required: true, autofocus: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :username, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :email, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :password, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label"}, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :password_confirmation, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.button :submit, "Sign up", class: "button is-info is-medium" %>
+            </div>
+          </div>
+        <% end %>
+        <br/>
+        <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+12. rewrite views/devise/confirmations/new.html.erb
+  <h2>Resend confirmation instructions</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.full_error :confirmation_token %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Resend confirmation instructions" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+13. rewrite views/devise/passwords/edit.html.erb
+  <section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+
+        <h2 class="title is-2">Change your password</h2>
+
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+
+          <%= f.input :reset_password_token, as: :hidden %>
+          <%= f.full_error :reset_password_token %>
+
+          <div class="field">
+            <div class="control">
+            <%= f.input :password, label: "New password", required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+            <%= f.input :password_confirmation, label: "Confirm your new password", input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }, required: true %>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Change my password" %>
+          </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+14. rewrite views/devise/passwords/new.html.erb
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        
+        <h2 class="title is-2">Forgot your password?</h2>
+
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="field">
+            <div class="control">
+            <%= f.input :email, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          
+          <%= f.button :submit, "Send me reset password instructions", class:"button is-info" %>
+          
+        <% end %>
+        <br />
+        <%= render "devise/shared/links" %>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+15. rewrite views/devise/registrations/edit.html.erb
+  <section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        
+      <h2 class="title is-2">Edit <%= resource_name.to_s.humanize %></h2>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :name, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :username, required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <% end %>
+          </div>
+
+          <div class="field">
+            <div class="control">
+            <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+            <%= f.input :password_confirmation, required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+        </div>
+   
+        <%= f.button :submit, "Update", class:"button is-info" %>
+     
+      <% end %>
+
+        <hr />
+        <h3 class="title is-5">Cancel my account</h3>
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+   
+      </div>
+    </div>
+  </div>
+</section>
+
+16. rewrite views/devise/registration/new.html.erb
+  <div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        <h2 class="title is-2">Sign Up</h2>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+          <div class="field">
+            <div class="control">
+              <%= f.input :name, required: true, autofocus: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :username, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :email, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :password, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label"}, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :password_confirmation, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.button :submit, "Sign up", class: "button is-info is-medium" %>
+            </div>
+          </div>
+        <% end %>
+        <br/>
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+17. rewrite views/devise/sessions/new.html.erb
+  <div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        <h2 class="title is-2">Log In</h2>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+          <div class="field">
+            <div class="control">
+              <%= f.input :email, required: true, autofocus: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :password, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label"}, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.button :submit, "Log In", class: "button is-info is-medium" %>
+            </div>
+          </div>
+        <% end %>
+        <br/>
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
