@@ -575,6 +575,78 @@
 24. update routes for devise add this to config/routes.rb
   devise_for :users, :controllers => { registrations: 'registrations'}
 
+## Update views
+
+1. in feed we will update the who to follow _feed.index.erb
+  <div class="media-content">
+    <div class="content"> 
+      <strong><%= item.user.name %></strong><br/>
+      <email><%= item.user.username %></email><br/>
+      <p><%= item.tweeet%></p>
+    </div>
+  </div>
+
+2. check if user is signed in and display button on nav bar to sign in or log out change in navbar-menu inside layouts/application.html.erb
+  <div id="navbarExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to 'New Tweeet', new_tweeet_path, class: "button is-info is-inverted" %>
+              </p>
+              <% if user_signed_in? %>
+                <p class="control">
+                  <%= link_to current_user.name, edit_user_registration_path, class: "button is-info"%>
+                </p>
+                <p>
+                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-info"%>
+                </p>
+              <% else %>
+                <p class="control">
+                  <%= link_to 'Sign In', new_user_session_path, class: "button is-info" %>
+                </p>
+                <p class="control">
+                  <%= link_to 'Sign Up', new_user_registration_path, class: "button is-info" %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+      </div>
+
+3. allow user to CRUD if signed into app add this to tweeets/_feed.html.erb
+  ## for tweeets
+
+  <% if user_signed_in? %>
+    <nav class="level">
+      ....
+    </nav>
+  <% end %>
+  </article>
+
+  ## for user profile
+
+  <div class="column is-half">
+  <% if user_singed_in? %>
+    <article class="media-box">
+      ...
+    </article>
+  <% end %>
+
+4. in index.html.erb we need to write a contitional to display our profile partial
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <% if user_signed_in? %>
+          <%= render 'profile' %>
+        <% else %>
+          <%= render 'trends' %>
+        <% end %>
+        <%= render 'feed' %>
+        <%= render 'who_to_follow' %>
+      </div>
+    </div>
+  </section>
+
+
 
 
 
