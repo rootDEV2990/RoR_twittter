@@ -553,6 +553,28 @@
   </div>
 </div>
 
+18. add relations between tweeets and users in models/Tweeet.rb 
+  belongs_to :user
+19. declare each user has a lot of tweets in models/User.rb
+  has_many :tweeets
+20. add user id to tweeets table in terminal type
+  rails g migration AddUserIdToTweeets user_id:integer
+21. in terminal run a migration
+  rails db:migrate
+22. in tweeets_controller.rb associate user with methods from devise Class change new and create methods 
+    def new
+      @tweeet = current_user.tweeets.build
+      ...
+    end
+    def create
+      @tweeet = current_user.tweeets.build(tweeet_params)
+      ...
+    end
+23. add a before action to make authentication work with actions calling devise methods
+  before_action :authenticate_user!, except: [:index, :show]
+24. update routes for devise add this to config/routes.rb
+  devise_for :users, :controllers => { registrations: 'registrations'}
+
 
 
 
