@@ -646,6 +646,52 @@
     </div>
   </section>
 
+5. create a file in tweeets called _profile.html.erb and add the following code 
+  <div class="column is-one-quarter">
+    <nav class="panel">
+        <p class="panel-heading">Profile</p>
+        <div class="panel-block">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <%= gravatar_image_tag(current_user.email, size: 64, alt: curent_user.name) %>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong><%= current_user.name %></strong><br/>
+                            <small><%= current_user.username %></small>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="panel-block">
+            <div class="level is-mobile">
+                <div class="level-item has-centered-text">
+                    <div>
+                        <p class="heading">Tweeets</p>
+                        <p class"title is-6"><%= current_user.tweeets.count%></p>
+                    </div>
+                </div>
+                <div class="level-item has-centered-text">
+                    <div>
+                        <p class="heading">Following</p>
+                        <p class"title is-6">2020</p>
+                    </div>
+                </div>
+                <div class="level-item has-centered-text">
+                    <div>
+                        <p class="heading">Followers</p>
+                        <p class"title is-6">420k</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
 
 
 
